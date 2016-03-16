@@ -107,7 +107,30 @@ class Milkshakes:
         for i in range(0,self.number_of_customers):
             self.customer.append(Customer(file_pointer.readline()[:-1],self.truth_table[i]))
 
-    def get_result(self):
+    def get_result_brute(self):
+        my_array = [{0} for i in range(0,self.number_of_flavours)]
+        for i_flavour in range(0,self.number_of_flavours):
+            for i_customer in range(0,self.number_of_customers):
+                type = self.truth_table[i_customer][i_flavour]
+                if type == 1:
+                    my_array[i_flavour].add(type)
+
+        option_arrays = [[] for i in range(0,self.number_of_flavours+1)]
+        get_list_options(my_array, option_arrays)
+        sorted_option_array = []
+        for options_by_malted in option_arrays:
+            for each_option_array in options_by_malted:
+                sorted_option_array.append(each_option_array)
+        acceptable_result = self.get_acceptable_results(sorted_option_array)
+        if acceptable_result is None:
+            return self.IMPOSSIBLE
+        else:
+            return ' '.join([str(x) for x in acceptable_result])
+
+    def get_result_revision1(self):
+        malted = []
+        for i_customer in range(0,self.number_of_customers):
+            
         my_array = [{0} for i in range(0,self.number_of_flavours)]
         for i_flavour in range(0,self.number_of_flavours):
             for i_customer in range(0,self.number_of_customers):

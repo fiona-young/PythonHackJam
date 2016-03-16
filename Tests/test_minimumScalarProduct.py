@@ -47,3 +47,29 @@ Case #2: IMPOSSIBLE
             result = case.get_result()
             out_str += 'Case #%s: %s\n'%(i+1,result)
         self.assertEquals(expected_result,out_str)
+
+
+    def testMilkshakesSmallBrute(self):
+        file_input = open('../Milkshake-small.in')
+        cases = int(file_input.readline())
+        out_str= ''
+        for i in range(0,cases):
+            case = Round1A2008.Milkshakes(file_input)
+            result = case.get_result_brute()
+            out_str += 'Case #%s: %s\n'%(i+1,result)
+        expected_output = open('../Milkshake-small.out')
+        expected_result = expected_output.read()
+        self.assertEquals(expected_result,out_str[:-1])
+
+    def testMilkshakesSmallRevision1(self):
+        file_input = open('../Milkshake-small.in')
+        cases = int(file_input.readline())
+        out_str= ''
+        for i in range(0,cases):
+            case = Round1A2008.Milkshakes(file_input)
+            result = case.get_result_revision1()
+            out_str += 'Case #%s: %s\n'%(i+1,result)
+        expected_output = open('../Milkshake-small.out')
+        expected_result = expected_output.read()
+        self.assertEquals(expected_result,out_str[:-1])
+
