@@ -3,13 +3,14 @@ import io
 import Round1A2008
 import MilkShake_brute
 import Milkshake_refinement1
+import Milkshake_refinement2
 
-class TestRouund1A2008(TestCase):
+class TestRound1A2008(TestCase):
     def run_cases(self,test_class, input_file_pointer : open,result_file_pointer : open):
         cases = int(input_file_pointer.readline())
         for i in range(0,cases):
             expected_result = result_file_pointer.readline()
-            if i==43:
+            if i==69:
                 a=1
             case = test_class(input_file_pointer)
             actual_result = 'Case #%s: %s\n'%(i+1, case.get_result())
@@ -66,6 +67,22 @@ Case #2: IMPOSSIBLE
     ''')
         self.run_cases(Milkshake_refinement1.Milkshakes,file_input,expected_result)
 
+    def testMilkshakesRefinement2(self):
+        expected_result = io.StringIO('''Case #1: 1 0 0 0 0
+Case #2: IMPOSSIBLE
+''')
+        file_input = io.StringIO('''2
+5
+3
+1 1 1
+2 1 0 2 0
+1 5 0
+1
+2
+1 1 0
+1 1 1
+    ''')
+        self.run_cases(Milkshake_refinement2.Milkshakes,file_input,expected_result)
 
     def testMilkshakesSmallBrute(self):
         file_input = open('Milkshake-small.in')
@@ -76,5 +93,11 @@ Case #2: IMPOSSIBLE
         file_input = open('Milkshake-small.in')
         expected_output = open('Milkshake-small.out')
         self.run_cases(Milkshake_refinement1.Milkshakes,file_input,expected_output)
+
+    def testMilkshakesSmallRevision2(self):
+        file_input = open('Milkshake-small.in')
+        expected_output = open('Milkshake-small.out')
+        self.run_cases(Milkshake_refinement2.Milkshakes,file_input,expected_output)
+
 
 
