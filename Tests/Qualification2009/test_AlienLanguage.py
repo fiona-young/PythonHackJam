@@ -1,36 +1,39 @@
-from unittest import TestCase
 import io
-import Round1A2008
-import MilkShake_brute
-import Milkshake_refinement1
-import Milkshake_refinement2
+from unittest import TestCase
+from Quaificatin2009.AlienLanguage import AlienLanguage
+import utilities
+class TestAlienLanguage(TestCase):
 
-class TestRound1A2008(TestCase):
-    def run_cases(self,test_class, input_file_pointer : open,result_file_pointer : open):
-        cases = int(input_file_pointer.readline())
-        for i in range(0,cases):
+    def run_cases(self, input_file_pointer : open,result_file_pointer : open):
+        word_length,words_in_language,number_of_cases = utilities.return_int_list(input_file_pointer.readline())
+        alien_language = AlienLanguage(word_length,words_in_language,input_file_pointer)
+        for i in range(0,number_of_cases):
             expected_result = result_file_pointer.readline()
+            word_pattern = input_file_pointer.readline()
             if i==69:
                 a=1
-            case = test_class(input_file_pointer)
-            actual_result = 'Case #%s: %s\n'%(i+1, case.get_result())
+            actual_result = 'Case #%s: %s\n'%(i+1, alien_language.get_result(word_pattern))
 
             self.assertEquals(expected_result,actual_result)
+    def testBasicInput(self):
+        expected_result = io.StringIO('''Case #1: 2
+Case #2: 1
+Case #3: 3
+Case #4: 0
 
-
-    def testScalarProduct(self):
-        expected_result = io.StringIO('''Case #1: -25
-Case #2: 6
 ''')
-        file = io.StringIO('''2
-3
-1 3 -5
--2 4 1
-5
-1 2 3 4 5
-1 0 1 0 1
+        file = io.StringIO('''3 5 4
+abc
+bca
+dac
+dbc
+cba
+(ab)(bc)(ca)
+abc
+(abc)(abc)(abc)
+(zyx)bc
     ''')
-        self.run_cases(Round1A2008.MinimumScalarProduct,file,expected_result)
+        self.run_cases(file,expected_result)
 
 
     def testMilkshakesBrue(self):
