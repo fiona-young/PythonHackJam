@@ -89,7 +89,7 @@ class WelcomeToCodeJamMap:
 
 
 
-def write_output_file(large=False):
+def main(large=False):
     text = "large" if large else 'small'
     file_name = os.path.join(__location__, 'Data/C-%s-practice.' % text)
     file_read, file_write, file_dump = utilities.get_file(file_name)
@@ -106,5 +106,6 @@ def write_output_file(large=False):
     file_write.close()
     file_dump.close()
 
-if __file__ == sys.argv[0]:
-    write_output_file(True)
+if __name__ == "__main__":
+    import cProfile
+    cProfile.run("main(True)")
